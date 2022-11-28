@@ -10,12 +10,10 @@ class login_form(forms.Form):
 
 class register_form(UserCreationForm):
     email=forms.EmailField()
-    first_name=forms.CharField(max_length=100)
-    last_name=forms.CharField(max_length=100)
-
+    
     class meta:
         Model=User
-        field=["usernamae","first_name","last_name","email","password1","password2"]
+        fields=["username","email", "password1","password2"]
 
 
 

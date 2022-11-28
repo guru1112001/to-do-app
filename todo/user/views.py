@@ -25,10 +25,13 @@ def login_view(request):
     return render(request,"user/login.html",{"form":form})
 
 def register_view(request):
+    form=register_form()
     if request.method=="POST":
         form=register_form(request.POST)
         if form.is_valid():
-            cd=form.cleaned_data
-            user=form.save()
-            messages.success(request,f"your account has succesfully created")
-            return redirect("loginpage")
+            form.save()
+        else:
+            return HttpResponse("your account has been register ")
+    
+    form=register_form()
+    return render(request,"user/register.html",{"form":form})
