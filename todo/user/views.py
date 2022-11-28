@@ -7,7 +7,7 @@ from django.contrib import messages
 
 def login_view(request):
     if request.method=="POST":
-        form=register_form(request.POST)
+        form=login_form(request.POST)
         if form.is_valid():
             cd=form.cleaned_data
             user=authenticate(request,username=cd["username"],password=cd["password"])
