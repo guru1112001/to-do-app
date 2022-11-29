@@ -30,7 +30,6 @@ def register_view(request):
         form=register_form(request.POST)
         if form.is_valid():
             form.save()
-        else:
             return HttpResponse("your account has been register ")
     
     form=register_form()
