@@ -15,10 +15,30 @@ def todo_create_view(request):
         form=create_todo(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("todo is added")
+            return redirect("/")
     else:
         form=create_todo()
     context={"form":form}
     return render(request,"notes/create_todo.html",{"form":form})
 
+def update_todo(request,pk):
+    todos=todo.objects.get(id=pk)
+    
+    form=create_todo(instance=todos)
+    if request.method=="POST":
+        form=create_todo(request.POST,instance=todos)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    context={"form":form}
+       
+    return render(request,"notes/update_todo.html",context)
+
+def delete_todo(request,pk):
+    item=todo.objects.get(id=pk)
+    if request.method=="POST":
+        item.delete()
+        return redirect("/")
+    context={"item":item}
+    return render(request,"notes/delete_todo.html",context)
 

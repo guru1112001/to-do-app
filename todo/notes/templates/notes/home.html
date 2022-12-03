@@ -10,9 +10,14 @@
     <h1>home page
     </h1>
     {% for todo in todos %}
-    {{todo.title}}<br>
-    {{todo.date}}
-
+    {% if todo.status ==  True %}
+    <strike>{{ todo }}</strike>
+    {% else %}
+    <p>{{ todo }}</p>
+    {% endif %}
+   
+    <a href="{% url 'notes:update-todo' todo.id %}">update</a>
+    <a href="{% url 'notes:delete-todo' todo.id %}">delete</a>
 
     {% endfor %}
     
