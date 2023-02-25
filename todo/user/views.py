@@ -30,7 +30,7 @@ def register_view(request):
         form=register_form(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("your account has been register ")
+            return redirect("/")
     
     form=register_form()
     return render(request,"user/register.html",{"form":form})
