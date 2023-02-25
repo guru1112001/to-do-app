@@ -1,16 +1,10 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
 from .models import todo
 from .forms import create_todo
 # Create your views here.
 def home_view(request):
-    context={"todos":todo.objects.all()}
-    return render(request,"notes/home.html",context)
-
-def about_view(request):
-    return render(request,"notes/about.html")
-
-def todo_create_view(request):
+    todos=todo.objects.all()
+    form=create_todo()
     if request.method=="POST":
         form=create_todo(request.POST)
         if form.is_valid():
@@ -18,8 +12,22 @@ def todo_create_view(request):
             return redirect("/")
     else:
         form=create_todo()
-    context={"form":form}
-    return render(request,"notes/create_todo.html",{"form":form})
+    context={"todos":todos,"form":form}
+    return render(request,"notes/home.html",context)
+
+def about_view(request):
+    return render(request,"notes/about.html")
+
+# def todo_create_view(request):
+#     if request.method=="POST":
+#         form=create_todo(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("/")
+#     else:
+#         form=create_todo()
+#     context={"form":form}
+#     return render(request,"notes/home.html",context)
 
 def update_todo(request,pk):
     todos=todo.objects.get(id=pk)

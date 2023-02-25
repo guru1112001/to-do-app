@@ -1,17 +1,30 @@
 {%extends "notes/base.html" %}
 {% block content %}
-    <h1>home page
-    </h1>
-    {% for todo in todos %}
-    {% if todo.status ==  True %}
-   <p> <strike>{{ todo }}</strike></p>
-    {% else %}
-    <p>{{ todo }}</p>
-    {% endif %}
-   
-    <a href="{% url 'notes:update-todo' todo.id %}">update</a>
-    <a href="{% url 'notes:delete-todo' todo.id %}">delete</a>
+    
 
-    {% endfor %}
+    <div class="center-column">
+        <form method="POST" action="/">
+            {% csrf_token %}
+            {{form.title}}
+            <input class="btn btn-info" type="submit" name="Create Task">
+        </form>
+        <div class="todo-list">
+            
+        {% for todo in todos %}
+        <div class="item-row">
 
+            {% if todo.status ==  True %}
+             <strike>{{ todo }}</strike>
+            {% else %}
+            <span>{{ todo }}</span>
+            {% endif %}
+            
+            <a class="btn btn-sm btn-info" href="{% url 'notes:update-todo' todo.id %}">update</a>
+            <a class="btn btn-sm btn-danger" href="{% url 'notes:delete-todo' todo.id %}">delete</a>
+        </div>
+        
+        {% endfor %}
+    </div>
+    
     {% endblock %}
+</div>
